@@ -71,13 +71,16 @@ function soNhoNhat() {
 }
 
 function soDuongNhoNhat() {
-    var minDuong = numberArr[0]
-    for (var i=1 ; i < numberArr.length ; i++) {
-        if (numberArr[i]>0) {
-            minDuong = numberArr[i]
+    var daySoDuong = numberArr.filter(function(item){
+        return item >0
+    })
+    var minDuong = daySoDuong[0]
+    for (var i=0 ; i < daySoDuong.length ; i++) {
+        if (minDuong > daySoDuong[i]) {
+            minDuong = daySoDuong[i]
         } 
     }
-    if (minDuong <= 0) {
+    if (daySoDuong.length < 1) {
         Swal.fire({
             title: 'Số dương nhỏ nhất',
             icon: `error`,
@@ -100,6 +103,7 @@ function soDuongNhoNhat() {
                 popup: 'animate__animated animate__fadeOutUp'
               }
           })
+        
     }
 }
 
@@ -204,7 +208,47 @@ function sapXepTang() {
 }
 
 function soNguyenTo() {
- 
+    // Điều kiện số dương lớn hơn 1
+    var dayNguyenDuong = numberArr.filter(function(item){
+        if (Number.isInteger(item) == true && item >=2) {
+            return item
+        }
+    })
+    var dayNguyenTo = []
+    for (var i = 0; i < dayNguyenDuong.length; i++) {
+        var check = 0;
+        for (var k =2 ; k < dayNguyenDuong[i]; k++) {
+            if (dayNguyenDuong[i] % k == 0) {
+                check = 1;
+            }
+        }
+        if (check == 0) {
+            dayNguyenTo.push(dayNguyenDuong[i])
+        }
+    }
+    if (dayNguyenTo.length < 1) {
+        Swal.fire({
+            title: 'Không có số nguyên tố',
+            icon: `error`,
+            showClass: {
+                popup: 'animate__animated animate__fadeInDown'
+              },
+              hideClass: {
+                popup: 'animate__animated animate__fadeOutUp'
+              }
+          })
+    } else {
+        Swal.fire({
+            title: 'Số nguyên tố đầu tiên',
+            text: `${dayNguyenTo[0]} `,
+            showClass: {
+                popup: 'animate__animated animate__fadeInDown'
+              },
+              hideClass: {
+                popup: 'animate__animated animate__fadeOutUp'
+              }
+          })
+    }
 }
 
 function demSoNguyen() {
